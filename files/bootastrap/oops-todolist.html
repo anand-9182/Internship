@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Todolist {
+            // properties
+            category;
+            todos = [];
+
+            // methods
+            constructor(cat) {
+                this.category = cat;
+                this.initTodolist();
+            }
+
+            initTodolist() {
+                var ntlist = document.createElement("ul");
+                ntlist.setAttribute("id", this.category);
+
+                var catHeader = document.createElement("h3");
+                catHeader.innerText = this.category;
+
+                ntlist.appendChild(catHeader);
+                document.body.appendChild(ntlist);
+            }
+
+            addTodo(todo) {
+                this.todos.push(todo);
+
+                var ntd = document.createElement("li");
+                ntd.innerText = todo;
+
+                document.getElementById(this.category).appendChild(ntd);
+            }
+
+            deleteTodo(i) {
+                this.todos.splice(i, 1);
+            }
+        }
+        var todolist1 = new Todolist("add")
+        todolist1.addTodo("lunch")
+        
+
+    </script>
+</body>
+
+</html>

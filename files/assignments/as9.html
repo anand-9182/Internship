@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: pink;
+        }
+        .colour {
+            background-color: green;
+            width: 100px;
+            height: 30px;
+        }
+
+        /* .decorate {
+            color: red;
+        } */
+    </style>
+</head>
+
+<body>
+    
+    <h1>Add students</h1>
+    <input type="text" style="width: 200px; height: 30px;" id="ip">
+    <button id="btn1" class="colour">add student</button>
+    <ul id="list" >
+
+    </ul>
+    <script>
+
+        document.getElementById("btn1").addEventListener('click', () => {
+            var i=document.getElementById("ip")
+            var li=document.createElement("li")
+            li.style.color="red";
+            li.innerText=i.value;
+            document.getElementById("list").appendChild(li)
+            i.value=""
+        });
+
+    </script>
+</body>
+
+</html>

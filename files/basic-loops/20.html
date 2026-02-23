@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var a=[];
+            for(var i=0;i<5;i++){
+                a[i]=Number(+prompt());
+            }
+            var max=a[0];
+            var min=a[0];
+            for(var i=1;i<=a.length;i++){
+            if(a[i]>max)
+            max=a[i];
+            }
+            if(a[i]<min)
+            min=a[i];
+        for(var i=0;i<=a.length-1;i++){
+        console.log(a[i])}
+        console.log("maximum value: "+max);
+        console.log("mimimum value: "+min);
+    </script>
+</body>
+</html>

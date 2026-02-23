@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+    <title>Hello, World!</title>
+</head>
+
+<body style="display:flex;flex-direction:column;align-items:center;">
+    <h1>STOP WATCH</h1>
+    <div align="center" style="border:2px solid;width:200px;padding:10px">
+        <h2 id="tmcnt">H : M : S</h2>
+        <button id="tglBtn">Start</button><br><br>
+        <button id="reset">Reset</button>
+    </div>
+    <script>
+        var HH = 0
+        var MM = 59
+        var SS = 55
+        var timer;
+        var hms=document.getElementById("tmcnt")
+        var tBtn=document.getElementById("tglBtn")
+        function toggle() {
+            timer = setInterval(function () {
+                SS++
+                if (MM == 59) {
+                    if (SS == 59) {
+                        HH++
+                        MM = 0
+                        SS = 0
+                    }
+                }
+                else {
+                    if (SS == 59) {
+                        MM++
+                        SS = 0
+                    }
+                }
+                hms.innerText = HH + " : " + MM + " : " + SS
+            }, 1000)
+        }
+        tBtn.addEventListener("click",function(){
+            if(tBtn.innerText=="Start")
+            {
+                tBtn.innerText="Stop"
+                toggle()
+            }
+            else
+            {
+                tBtn.innerText="Start"
+                clearInterval(timer)
+            }
+        })
+        document.getElementById("reset").addEventListener("click",function(){
+            HH=MM=SS=0
+            clearInterval(timer)
+            hms.innerText = HH + " : " + MM + " : " + SS
+        })
+    </script>
+</body>
+
+</html>

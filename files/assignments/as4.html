@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="text" style="width: 300px; height: 300px; background-color:white;" id="inp"><br><br><br>
+    <button style="width: 100px; height: 30px; background-color: white;" id="btn1">Toggle</button>
+    <script>
+        const btn = document.getElementById("btn1")
+        const ip = document.getElementById("inp")
+        btn.addEventListener('click', () => {
+            if (ip.style.backgroundColor == "yellow") {
+                ip.style.backgroundColor = "white"
+            }
+            else {
+                ip.style.backgroundColor = "yellow"
+            }
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="ip" placeholder="em add cheyyaali">
+    <button id="btn" onclick="addlist()">add todo</button>
+    <ul id="list"></ul>
+    <script>
+
+        function addlist() {
+            var t = document.getElementById("ip").value
+            var li = document.createElement("li")
+            li.innerText = t;
+            var del = document.createElement("button")
+            del.innerText = "del"
+            li.appendChild(del)
+            // del.onclick="deleted()"
+            document.getElementById("list").appendChild(li)
+            document.getElementById("ip").value = ""
+        }
+    </script>
+</body>
+
+</html>

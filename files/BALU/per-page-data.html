@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>Hello, World!</title>
+</head>
+<body>
+  <table border="2" width="400px">
+    <thead>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>City</th>
+      <th>Salary</th>
+    </thead>
+    <tbody id="tb">
+      
+    </tbody>
+  </table><br><br>
+  <button id="pBtn" onclick="prevpg()">Prev</button>
+  Page:<b><span id="pno">1</span></b>
+  <button id="nBtn" onclick="nextpg()">Next</button><br><br>
+  Select Per-Page Data :
+  <select onchange="chngperpage(event)">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+  </select>
+<script>
+  const employees = [
+  { firstname: "John", lastname: "Doe", age: 30, gender: "Male", city: "New York", salary: 60000 },
+  { firstname: "Jane", lastname: "Smith", age: 25, gender: "Female", city: "Los Angeles", salary: 75000 },
+  { firstname: "Peter", lastname: "Jones", age: 35, gender: "Male", city: "Chicago", salary: 80000 },
+  { firstname: "Alice", lastname: "Williams", age: 28, gender: "Female", city: "Houston", salary: 70000 },
+  { firstname: "Bob", lastname: "Brown", age: 40, gender: "Male", city: "Dallas", salary: 90000 },
+  { firstname: "Charlie", lastname: "Davis", age: 32, gender: "Male", city: "Miami", salary: 65000 },
+  { firstname: "Diana", lastname: "Miller", age: 29, gender: "Female", city: "Seattle", salary: 82000 },
+  { firstname: "Eve", lastname: "Wilson", age: 31, gender: "Female", city: "Boston", salary: 78000 },
+  { firstname: "Frank", lastname: "Moore", age: 45, gender: "Male", city: "Denver", salary: 95000 },
+  { firstname: "Grace", lastname: "Taylor", age: 27, gender: "Female", city: "Austin", salary: 68000 },
+  { firstname: "Henry", lastname: "Anderson", age: 38, gender: "Male", city: "San Diego", salary: 88000 },
+  { firstname: "Ivy", lastname: "Thomas", age: 26, gender: "Female", city: "San Jose", salary: 72000 },
+  { firstname: "Jack", lastname: "Jackson", age: 34, gender: "Male", city: "Phoenix", salary: 76000 },
+  { firstname: "Karen", lastname: "White", age: 41, gender: "Female", city: "Portland", salary: 91000 },
+  { firstname: "Leo", lastname: "Harris", age: 29, gender: "Male", city: "San Antonio", salary: 69000 },
+  { firstname: "Mia", lastname: "Martin", age: 33, gender: "Female", city: "Orlando", salary: 74000 },
+  { firstname: "Nick", lastname: "Thompson", age: 37, gender: "Male", city: "Tampa", salary: 83000 },
+  { firstname: "Olivia", lastname: "Garcia", age: 24, gender: "Female", city: "El Paso", salary: 62000 },
+  { firstname: "Paul", lastname: "Martinez", age: 42, gender: "Male", city: "Las Vegas", salary: 92000 },
+  { firstname: "Quinn", lastname: "Robinson", age: 28, gender: "Female", city: "Raleigh", salary: 71000 },
+  { firstname: "Ryan", lastname: "Clark", age: 36, gender: "Male", city: "Cleveland", salary: 85000 },
+  { firstname: "Sophia", lastname: "Rodriguez", age: 27, gender: "Female", city: "San Bernardino", salary: 67000 },
+  { firstname: "Tom", lastname: "Lewis", age: 39, gender: "Male", city: "Columbus", salary: 89000 },
+  { firstname: "Uma", lastname: "Lee", age: 31, gender: "Female", city: "Irvine", salary: 78000 },
+  { firstname: "Victor", lastname: "Walker", age: 44, gender: "Male", city: "Birmingham", salary: 94000 },
+  { firstname: "Wendy", lastname: "Hall", age: 26, gender: "Female", city: "Madison", salary: 66000 },
+  { firstname: "Xavier", lastname: "Allen", age: 35, gender: "Male", city: "Boise", salary: 81000 },
+  { firstname: "Yara", lastname: "Young", age: 29, gender: "Female", city: "Provo", salary: 70000 },
+  { firstname: "Zack", lastname: "King", age: 34, gender: "Male", city: "Fresno", salary: 79000 },
+  { firstname: "Aaron", lastname: "Scott", age: 43, gender: "Male", city: "Toledo", salary: 93000 },
+  { firstname: "Bella", lastname: "Green", age: 28, gender: "Female", city: "Eugene", salary: 72000 },
+  { firstname: "Caleb", lastname: "Adams", age: 37, gender: "Male", city: "Lincoln", salary: 84000 },
+  { firstname: "Denise", lastname: "Baker", age: 32, gender: "Female", city: "Reno", salary: 76000 },
+  { firstname: "Ethan", lastname: "Gonzalez", age: 41, gender: "Male", city: "Lubbock", salary: 91000 },
+  { firstname: "Fiona", lastname: "Nelson", age: 25, gender: "Female", city: "Flagstaff", salary: 64000 },
+  { firstname: "George", lastname: "Carter", age: 38, gender: "Male", city: "Spokane", salary: 86000 },
+  { firstname: "Hannah", lastname: "Mitchell", age: 30, gender: "Female", city: "Salem", salary: 75000 },
+  { firstname: "Ian", lastname: "Perez", age: 35, gender: "Male", city: "Brownsville", salary: 82000 },
+  { firstname: "Julia", lastname: "Roberts", age: 27, gender: "Female", city: "Santa Cruz", salary: 69000 },
+  { firstname: "Kevin", lastname: "Flores", age: 34, gender: "Male", city: "Pasadena", salary: 81000 },
+  { firstname: "Liam", lastname: "Reed", age: 29, gender: "Male", city: "Ithaca", salary: 73000 },
+  { firstname: "Monica", lastname: "Patel", age: 36, gender: "Female", city: "Edison", salary: 86000 },
+  { firstname: "Noah", lastname: "Kim", age: 31, gender: "Male", city: "Sunnyvale", salary: 79000 }
+
+];
+
+
+var i=0,step=5,pgcnt=1
+function genUI()
+{  
+    document.getElementById("tb").innerText=""
+    employees.slice(i,i+step).forEach(function(emp){
+        var tr=document.createElement("tr")
+        Object.keys(emp).forEach(function(key){          
+            var td=document.createElement("td")
+            td.innerText=emp[key]
+            tr.appendChild(td)
+        })
+        tb.appendChild(tr)
+    })
+    if(i<=0)
+    {
+        document.getElementById("pBtn").disabled=true
+    }
+    if(i+step>=employees.length)
+    {
+        document.getElementById("nBtn").disabled=true
+    }
+    document.getElementById("pno").innerText=pgcnt
+}
+
+function prevpg()
+{
+    if(i-step>=0)
+    {
+        i-=step
+        pgcnt--
+        genUI()
+    }
+    document.getElementById("nBtn").disabled=false
+}
+function nextpg()
+{
+    if(i+step<employees.length)
+    {
+        i+=step
+        pgcnt++
+        genUI()
+    }
+    document.getElementById("pBtn").disabled=false
+}
+function chngperpage(ev)
+{
+    step=+ev.target.value
+    i=0
+    pgcnt=1
+    genUI()
+}
+genUI()
+</script>
+</body>
+</html>
