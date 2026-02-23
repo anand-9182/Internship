@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="ip">  
+    <button onclick="genUI()" id="btn">click</button><br><br>
+    <table border="2">
+        <thead>
+            <th>title</th>
+            <th>category</th>
+            <th>price</th>
+        </thead>
+        <tbody id="tab">
+            <tr"><td colspan="3" align="center">No Data</td></tr>
+        </tbody>
+    </table>
+    <script>
+        var products;
+        function genUI() {
+            var inp = document.getElementById("ip").value
+            var http = new XMLHttpRequest()
+            http.open("GET","https://dummyjson.com/products?limit="+inp, false)
+            http.send()
+            products = JSON.parse(http.response).products
+            console.log(products)
+            document.getElementById("tab").innerHTML=""
+            products.forEach(function (product) {
+                var ttr = document.createElement("tr")
+                var tdt=document.createElement("td")
+                tdt.innerText = product.title
+                ttr.appendChild(tdt)
+                var tdc=document.createElement("td")
+                tdc.innerText = product.category
+                ttr.appendChild(tdc)
+                var tdp=document.createElement("td")
+                tdp.innerText = product.price
+                ttr.appendChild(tdp)
+
+                document.getElementById("tab").appendChild(ttr)
+            });
+        }
+        //  console.log(http.readyState)
+        // http.onreadystatechange=function(){
+        // console.log(http.readyState)
+        // if(http.readyState===1){
+        //     console.log("request send....")
+        // }
+        // if(http.readyState===2){
+        //     console.log("request accepted....")
+        // }
+        // if(http.readyState===3){
+        //     console.log("load started....")
+        // }
+        // if(http.readyState===4){
+        //     console.log("load ended....")
+        // }
+        // }
+    </script>
+</body>
+
+</html>
